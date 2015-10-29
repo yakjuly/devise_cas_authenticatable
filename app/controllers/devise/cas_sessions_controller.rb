@@ -55,7 +55,7 @@ class Devise::CasSessionsController < Devise::SessionsController
   def read_session_index
     if request.headers['CONTENT_TYPE'] =~ %r{^multipart/}
       false
-    elsif request.post? && params['logoutRequest'] =~
+    elsif request.post? && URI.decode(params['logoutRequest']) =~
         %r{^<samlp:LogoutRequest.*?<samlp:SessionIndex>(.*)</samlp:SessionIndex>}m
       $~[1]
     else
